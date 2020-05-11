@@ -111,7 +111,6 @@ $(function(){
 
     function allPaint() {
         interval = 360/smoke.length;
-        rectWidth = 5;
 
         const allDeath = container.append('g')
             .attr('class','allDeath')
