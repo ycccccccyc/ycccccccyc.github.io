@@ -128,7 +128,6 @@ $(function(){
             })
             // .style('fill' ,'rgb(180,160,160)')
             .style('fill', function(d,i){
-                console.log(i)
                 if(continent[i]%2 == 1)return 'rgb(180,160,160)'
                 else return 'rgb(214,199,199)'
             })
@@ -136,10 +135,12 @@ $(function(){
     }
 
     function triggerSelect(){
+        let svgLeft = document.querySelector('#mysvg').getBoundingClientRect().left
+        let svgTop = document.querySelector('#mysvg').getBoundingClientRect().top
         d3.select('.map').on('mousemove', function(Event){
             let index = -1;
-            let deltx = event.clientX - width/2;
-            let delty = event.clientY - height/2;
+            let deltx = event.clientX - svgLeft - width/2;
+            let delty = event.clientY - svgTop - height/2;
             let angle = Math.atan(delty / deltx) * 180 / Math.PI;
             angle = (function(){
                 if (deltx < 0)return 180 + angle;
