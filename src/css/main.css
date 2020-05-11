@@ -22,11 +22,34 @@ html,body{
     width: 100%;
     top: 40%;
 }
+.clearfix:after{
+    content: '';
+    display: block;
+    clear: both;
+}
 .red{
     color: rgb(175,27,27);
 }
+.font60{
+    font-size: 60px;
+}
+.font50{
+    font-size: 50px;
+}
 
-
+.pullDown{
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    /* text-align: center; */
+    top: 450px;
+    display: inline-block;
+    /* text-align: center; */
+    border-top: 30px  solid #A32424;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    cursor: pointer;
+}
 
 
 
@@ -49,19 +72,71 @@ html,body{
 
 .page2{
     font-weight: bold;
+    font-size: 30px;
+}
+.page2 p{
+    position: relative;
 }
 .page2 p:first-child{
-    font-size: 60px;
-    display: inline-block;
-    position: relative;
+    font-size: 70px;
     top: -150px;
 }
+.page2 p:nth-child(2){
+    top: -150px
+}
+.page2 p:nth-child(3){
+    top: -80px;
+}
+.page2 p:nth-child(4){
+    top: -30px;
+}
+.page2 p:nth-child(3) span:first-child{
+    font-size: 60px;
+}
 
+.page3{
+    font-weight: bold;
+    font-size: 30px;
+}
+.page3 p{
+    position: relative;
+}
+.page3 p:first-child{
+    top:-100px
+}
+.page3 p:nth-child(2){
+    top:-100px;
+    left: -220px;
+}
+.page3 p:nth-child(3){
+    top:-20px;
+}
+.page3 p:nth-child(4){
+    top:20px;
+}
 
-
-
-
-
+.page4{
+    font-weight: bold;
+    font-size: 30px;
+}
+.page4 p{
+    position: relative;
+}
+.page4 p:first-child{
+    top: -120px;
+}
+.page4 p:nth-child(2){
+    top: -80px;
+}
+.page4 p:nth-child(3){
+    top: -40px;
+}
+.page4 p:nth-child(5){
+    position: absolute;
+    /* top: 450px; */
+    display: inline-block;
+    /* text-align: center; */
+}
 
 
 
