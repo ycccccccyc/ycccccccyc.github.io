@@ -22,8 +22,7 @@ html,body{
     text-align: center;
 }
 #mysvg{
-    width: 2000px;
-    height: 900px;
+    margin: auto;
 }
 .page5 .countryMap{
     /* display: inline-block; */
