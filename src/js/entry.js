@@ -1,11 +1,11 @@
 // document.getElementsByTagName('body')[0].style.zoom=2
-$(function(){
-    // $("div.body").css({
-    //     "transform":"scale(0.1)","transform-origin":"50% 0"
-    // })
-    // const contained = document.querySelector("#contained");;
-    // let fileReader = new FileReader();
 
+if (screen.width >= 1440){
+}else{
+    document.getElementsByTagName('body')[0].style.zoom=1/0.67
+}
+
+$(function(){
     //svg
     const svg = d3.select('svg');
     const margin = {
@@ -1019,7 +1019,7 @@ $(function(){
     }
 
     function updateMap(index){
-        
+
     }
 
 
@@ -1027,13 +1027,24 @@ $(function(){
     $('.wrapper').fullpage({
         licenseKey: ' i have no key ',
         anchors: ['page1', 'page2', 'page3', 'page4','page5'],
-        // sectionsColor: ['rgb(218,198,198)', '#330505', '#330505', '#330505'],
         afterLoad: function(anchor, index){
+            if(index.index == 1){
+                $('.page2 .title').animate({opacity: 1},1000)
+                    .next().animate({opacity: 1},1000)
+                    .next().delay(1500).animate({opacity: 1},1000)
+                    .next().delay(3000).animate({opacity: 1},1000)
+                    .next().delay(4500).animate({opacity: 1},1000)
+            }
+            if(index.index == 2){
+                $('.page2 p').eq(0).find('span').eq(3)
+                    .animate({opacity: 1},1000)
+            }
             if(index.index == 4){
                 scrollAuto();
             }
         },
         onLeave: function(index, nextIndex){
+
         }
     });
 });
