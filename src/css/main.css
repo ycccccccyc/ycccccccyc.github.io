@@ -86,6 +86,7 @@ html,body{
 }
 .page2 p{
     position: relative;
+    opacity: 0;
 }
 .page2 p:first-child{
     font-size: 4.8rem;
@@ -151,7 +152,14 @@ html,body{
     font-weight: normal;
     left: calc(50% - 4.5em)
 }
-
+.page4 .declaration{
+    font-size: 1.2rem;
+    color: rgb(211,79,79);
+    font-weight: normal;
+    position: absolute;
+    top:55%;
+    right: 50px;
+}
 
 
 
