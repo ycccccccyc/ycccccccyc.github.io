@@ -86,7 +86,9 @@ $(function(){
     let highlight = false;//控制单次高亮
     let highlightIndex = null;
 
-    let recCol = ['rgb(85,9,9)','rgb(95,12,12)','rgb(107,13,13)','rgb(122,16,16)','rgb(137,19,19)']
+    let recCol = ['rgb(221,186,186)','rgb(219,169,169)','rgb(214,149,148)']
+    let recColorScale=[]
+    let deathRateMax;//min=0.354
 
     //对无效数据做必要的剔除
     function preprocess(arr) {
@@ -110,6 +112,8 @@ $(function(){
     }
 
     function allPaint() {
+        deathRateMax = d3.max(deathRate)
+        recColorScale = [(deathRateMax - (deathRateMax-0.354)/3), (deathRateMax - (deathRateMax-0.354)/3*2)];//inormal
         interval = 360/smoke.length;
 
         const allDeath = container.append('g')
@@ -125,15 +129,43 @@ $(function(){
             .attr('transform',function (d, i) {
                 return "rotate("+ i*interval + ")";
             })
-            // .style('fill' ,'rgb(180,160,160)')
             .style('fill', function(d,i){
-                if(continent[i]%2 == 1)return 'rgb(180,160,160)'
-                else return 'rgb(214,199,199)'
+                if (d > recColorScale[0]) return recCol[2];
+                else if(d > recColorScale[1])return recCol[1];
+                else return recCol[0]
             })
+
+        let countryScale = [42,47,54,16,23,12];
+
+        let pie = d3.pie()
+            .startAngle(Math.PI/2-0.02)
+            .endAngle(Math.PI*4)
+            .padAngle(0.02)
+            .sort(null)
+            .sortValues(null)
+        let innerR = 184
+        let outR = 190
+        let arc_generator = d3.arc()
+            .innerRadius(innerR)
+            .outerRadius(outR)
+            // .cornerRadius(10)
+        let pieData = pie(countryScale)
+        
+        let g = container.append('g')
+            .attr('class', 'scaleCircle')
+            .selectAll("g")
+            .data(pieData)
+            .enter()
+            .append("g")
+        g.append("path")
+            .attr('stroke', 'none')
+            .attr("d", d => arc_generator(d))
+            .attr("fill", 'rgb(221,123,123)')
 
     }
 
     function triggerSelect(){
+        clearInterval(timer);
         let svgLeft = document.querySelector('#mysvg').getBoundingClientRect().left
         let svgTop = document.querySelector('#mysvg').getBoundingClientRect().top
         d3.select('.map').on('mousemove', function(Event){
@@ -153,10 +185,12 @@ $(function(){
                     pop(index);
                     highlight = true;
                     highlightIndex = index;
+                    
                 }
             }else{
                 if(highlight){
                     highlight = false;
+                    console.log(highlightIndex)
                     popback(highlightIndex);
                 }
             }
@@ -164,25 +198,43 @@ $(function(){
             if(highlight){
                 highlight = false;
                 popback(highlightIndex);
+                scrollAuto();
             }
         })
 
     }
 
-    function pop(index){
+    function pop(index ,callback){
         let currentRect = d3.select(d3.select('.allDeath').selectAll('polygon')['_groups'][0][index]);
+        paintTree(index);
+        updateTable(index);
+        
+        currentRect.transition()
+            .duration(500)
+            .style('fill', 'rgb(221,110,110)')
 
+
+        if(callback && callback == true){
+            setTimeout(() => {
+                popback(index)
+            }, 2500);
+
+        }
+    }
+
+    function paintTree(index){
+        
         growingTree.attr("transform",
             "translate("+width/2+"," +height/2 +")"
             +" rotate(" + index * interval + ")"
             )
 
 
-        const pieCol = ['rgb(171,100,100)', 'rgb(220,180,180)']
+        const pieCol = ['rgb(140,179,221)', 'rgb(232,170,170)']
         
         let startX = (200 + Math.pow(1.5, deathRate[index]*10) * 5),
             startY = 0;
-        //贝赛尔曲线尝试
+
         //高血糖：中间
         if(hyperglycemia[index] != 0){
             growingTree.append('line')
@@ -193,7 +245,7 @@ $(function(){
                 .duration(1000)
                 .attr('x1', startX)
                 .attr('x2', startX + hyperglycemia[index]*4)
-                .style('stroke','rgb(211,79,79)')
+                .style('stroke','rgb(221,110,110)')
                 .style('stroke-width','2')
 
             let dataset = [hyperglycemia_m[index], hyperglycemia_f[index]];
@@ -222,18 +274,6 @@ $(function(){
                 .attr("d", d => arc_generator(d))
                 .attr("fill", function(d,i){return pieCol[i]})
 
-            // growingTree.append('circle')
-            //     .attr('class','triggeredTree')
-            //     .attr('cx',startX + hyperglycemia[index]*2 + 10*hypertension_m[index])
-            //     .attr('cy',-10*hyperglycemia_m[index])
-            //     .attr('r',10*hyperglycemia_m[index])
-            //     .style('fill', 'rgb(111,94,234)')
-            // growingTree.append('circle')
-            //     .attr('class','triggeredTree')
-            //     .attr('cx',startX + hyperglycemia[index]*2 +1)
-            //     .attr('cy',3)
-            //     .attr('r',10*(1-hyperglycemia_f[index]))
-            //     .style('fill', 'rgb(255,159,237)')
         }else{
             growingTree.append('line')
                 .attr('class','triggeredTree')
@@ -243,9 +283,9 @@ $(function(){
                 .attr('y2', startY)
                 .transition()
                 .duration(1000)
-                .attr('x2',startX+18)
+                .attr('x2',startX+ 8.5*4)
                 .style('stroke-width', 1.5)
-                .style('stroke', 'rgb(137,19,19)')
+                .style('stroke', 'rgb(221,110,110)')
                 .attr('stroke-dasharray', '5 5')
         }
 
@@ -256,18 +296,6 @@ $(function(){
         if(hypertension[index] != 0){
             endX = startX + hypertension[index]*4*Math.cos(-40/180 * Math.PI);
             endY = hypertension[index]*4*Math.sin(-40/180 * Math.PI);
-            // let cpx1 = startX + (endX - startX)/3, 
-            //     cpy1 = -2;
-            // let cpx2 = startX + (endX - startX)/3*2, 
-            //     cpy2 = -4;
-            // path.moveTo(startX,startY);
-            // path.bezierCurveTo(cpx1,cpy1,cpx2,cpy2,endX,endY);
-            // growingTree.append('path')
-            //     .attr('class','triggeredTree')
-            //     .attr('d',path.toString())
-            //     .style('stroke','rgb(211,79,79)')
-            //     .style('stroke-width','2')
-            //     .style('fill', 'none')
 
             growingTree.append('line')
                 .attr('class','triggeredTree')
@@ -279,7 +307,7 @@ $(function(){
                 .duration(1000)
                 .attr('x2', endX)
                 .attr('y2', endY)
-                .style('stroke','rgb(211,79,79)')
+                .style('stroke','rgb(221,110,110)')
                 .style('stroke-width','2')
 
             let dataset = [hypertension_m[index], hypertension_f[index]];
@@ -306,21 +334,6 @@ $(function(){
                 .attr('stroke', 'none')
                 .attr("d", d => arc_generator(d))
                 .attr("fill", function(d,i){return pieCol[i]})
-
-            // growingTree.append('circle')
-            //     .attr('class','triggeredTree')
-            //     .attr('cx',endX+3)
-            //     .attr('cy',endY-2)
-            //     .attr('r',7*hypertension_m[index])
-            //     .style('fill', 'rgb(111,94,234)')
-            // growingTree.append('circle')
-            //     .attr('class','triggeredTree')
-            //     .attr('cx',endX+3)
-            //     .attr('cy',endY+4)
-            //     .attr('r',7*(1-hypertension_m[index]))
-            //     .style('fill', 'rgb(255,159,237)')
-
-
         }else{
             growingTree.append('line')
                 .attr('class','triggeredTree')
@@ -328,12 +341,10 @@ $(function(){
                 .duration(1000)
                 .attr('x1', startX)
                 .attr('y1', startY)
-                // .attr('x2',startX+18.3)
-                // .attr('y2',startY-9.15)
-                .attr('x2', startX+46*Math.cos(-40/180 * Math.PI))
-                .attr('y2', startY+46*Math.cos(-40/180 * Math.PI))
+                .attr('x2', startX + 22.3*4*Math.cos(-40/180 * Math.PI))
+                .attr('y2', 22.3*4*Math.sin(-40/180 * Math.PI))
                 .style('stroke-width', 1.5)
-                .style('stroke', 'rgb(211,79,79)')
+                .style('stroke', 'rgb(221,110,110)')
                 .attr('stroke-dasharray', '5 5')
         }
 
@@ -354,7 +365,7 @@ $(function(){
                 .attr('x1', startX)
                 .attr('x2', endX)
                 .attr('y2', endY)
-                .style('stroke','rgb(211,79,79)')
+                .style('stroke','rgb(221,110,110)')
                 .style('stroke-width','2')
 
             let dataset = [smoke_m[index], smoke_f[index]];
@@ -391,10 +402,10 @@ $(function(){
                 .attr('y2', startY)
                 .transition()
                 .duration(1000)
-                .attr('x2',startX+34*Math.cos(-20/180 * Math.PI))
-                .attr('y2',startY+34*Math.sin(-20/180 * Math.PI))
+                .attr('x2',startX + 19.2*4*Math.cos(-20/180 * Math.PI))
+                .attr('y2',19.2*4*Math.sin(-20/180 * Math.PI))
                 .style('stroke-width', 1.5)
-                .style('stroke', 'rgb(211,79,79)')
+                .style('stroke', 'rgb(221,110,110)')
                 .attr('stroke-dasharray', '5 5')
         }
 
@@ -415,7 +426,7 @@ $(function(){
                 .attr('x1', startX)
                 .attr('x2', endX)
                 .attr('y2', endY)
-                .style('stroke','rgb(211,79,79)')
+                .style('stroke','rgb(221,110,110)')
                 .style('stroke-width','2')
 
             let dataset = [sport_m[index], sport_f[index]];
@@ -452,10 +463,10 @@ $(function(){
                 .attr('y2', startY)
                 .transition()
                 .duration(1000)
-                .attr('x2',startX+56*Math.cos(20/180 * Math.PI))
-                .attr('y2',startY+56*Math.sin(20/180 * Math.PI))
+                .attr('x2',startX + 27.5*4*Math.cos(20/180 * Math.PI))
+                .attr('y2',27.5*4*Math.sin(20/180 * Math.PI))
                 .style('stroke-width', 1.5)
-                .style('stroke', 'rgb(211,79,79)')
+                .style('stroke', 'rgb(221,110,110)')
                 .attr('stroke-dasharray', '5 5')
         }
 
@@ -476,7 +487,7 @@ $(function(){
                 .attr('x1', startX)
                 .attr('x2', endX)
                 .attr('y2', endY)
-                .style('stroke','rgb(211,79,79)')
+                .style('stroke','rgb(221,110,110)')
                 .style('stroke-width','2')
 
             let dataset = [fat_m[index], fat_f[index]];
@@ -513,17 +524,13 @@ $(function(){
                 .attr('y2', startY)
                 .transition()
                 .duration(1000)
-                .attr('x2',startX+40*Math.cos(40/180 * Math.PI))
-                .attr('y2',startY+40*Math.sin(40/180 * Math.PI))
+                .attr('x2',startX + 13.2*3.8*Math.cos(40/180 * Math.PI))
+                .attr('y2',13.2*3.8*Math.sin(40/180 * Math.PI))
                 .style('stroke-width', 1.5)
-                .style('stroke', 'rgb(211,79,79)')
+                .style('stroke', 'rgb(221,110,110)')
                 .attr('stroke-dasharray', '5 5')
         }
 
-        
-        currentRect.transition()
-            .duration(150)
-            .style('fill', 'rgb(211,79,79)')
     }
 
     function popback(index){
@@ -531,25 +538,116 @@ $(function(){
 
         d3.selectAll('.triggeredTree')
             .transition()
-            .duration(200)
+            .duration(500)
             .style('opacity', 0)
             .remove()
         d3.selectAll('.arcs')
             .transition()
-            .duration(200)
+            .duration(500)
             .style('opacity', 0)
             .remove()
 
 
         currentRect.transition()
-            .duration(100)
-            .style('fill', 'rgb(180,160,160)')
+            .duration(500)
+            .style('fill', function(){
+                // console.log(deathRate[index])
+                if (deathRate[index] > recColorScale[0]) return recCol[2];
+                else if(deathRate[index] > recColorScale[1])return recCol[1];
+                else return recCol[0]
+            })
 
     }
 
 
 
+    function scrollAuto(){
+        clearInterval(timer);
+        timer = setInterval(function(){
+            pop(currentCountryIndex, true);
 
+            if(currentCountryIndex>=193)currentCountryIndex=0;
+            else currentCountryIndex += 1;
+        },3000)
+
+    }
+
+    function updateTable(index){
+        //资料卡更新
+        $('.page5 .tableBox .data-countryCh').animate({opacity: 0}, 500, function(){
+            $(this).text(countriesZh[index]).animate({opacity: 1},500)
+        })
+        $('.page5 .tableBox .data-countryEn').animate({opacity: 0}, 500, function(){
+            $(this).text(countriesEn[index]).animate({opacity: 1},500)
+        })
+
+        //数字刷新
+        digitalChange(index);
+
+    }
+
+    function digitalChange(index){
+        var Event = {
+            number: function(digit){
+              var num_arr=[];
+              for(var i = 0;i<digit.length;i++){
+                num_arr.push(digit.charAt(i));
+              }
+         
+              return num_arr;
+            },
+            dom: function(arr){
+              var str = '';
+              for(var i = 0;i<arr.length;i++){
+                if(parseInt(arr[i])>=0){
+                  str += '<div class="l js-l-box digit-container" data-show='+arr[i]+'>\
+                          <span>0</span>\
+                          <span>1</span>\
+                          <span>2</span>\
+                          <span>3</span>\
+                          <span>4</span>\
+                          <span>5</span>\
+                          <span>6</span>\
+                          <span>7</span>\
+                          <span>8</span>\
+                          <span>9</span>\
+                        </div>';
+                }else{
+                   str += '<div class="sign-box l"><span>'+arr[i]+'</span></div>';
+                }
+              }
+              return str;
+            },
+            animation: function(){
+                var height = $(".js-box").height();
+                
+                $(".js-l-box").each(function(i){
+                    var num = parseInt($(this).data("show"));
+                    var scrollTop = 0;
+                    var scrollTop = height * num;
+                    $(this).css("margin-top",0);
+                    $(this).animate({marginTop: -scrollTop},1500);
+                });
+            }
+        };
+
+        let final_arr = Event.number(area[index]);
+        $(".data-area").eq(0).html(Event.dom(final_arr));
+        Event.animation();
+        $(".data-area").eq(1).html(Event.dom(final_arr));
+        Event.animation();
+        final_arr = Event.number(population[index]);
+        $(".data-population").eq(0).html(Event.dom(final_arr));
+        Event.animation();
+        $(".data-population").eq(1).html(Event.dom(final_arr));
+        Event.animation();
+        let curRate = (Math.round(deathRate[index]*10000)/100).toString();
+        final_arr = Event.number(curRate);
+        $(".data-deathRate").eq(0).html(Event.dom(final_arr));
+        Event.animation();
+        $(".data-deathRate").eq(1).html(Event.dom(final_arr));
+        Event.animation();
+    }
 
 
 
@@ -559,9 +657,7 @@ $(function(){
         // sectionsColor: ['rgb(218,198,198)', '#330505', '#330505', '#330505'],
         afterLoad: function(anchor, index){
             if(index.index == 4){
-                // w = $(window).width();
-                // h = $(window).height();
-                // al
+                scrollAuto();
             }
         },
         onLeave: function(index, nextIndex){

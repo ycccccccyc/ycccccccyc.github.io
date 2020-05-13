@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+
+    <title>Document</title>
+</head>
+<body>
+    <svg height="400" width="400"></svg>
+    <script src="./src/js/tool/jquery-3.3.1.min.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+
+    <script>
+        var rate = [22.3, 19.2, 8.5, 27.5, 13.2]
+        var svg = d3.select('svg')
+        let length = Math.pow(1.5, .45*10) * 5;
+        svg.append('polygon')
+            .attr('points', '197.5,300 202.5,300 203.2,'+(300-length)+ ' 196.8,' + (300-length))
+            .attr('fill', 'rgb(211,79,79)')
+        //高血糖
+            svg.append('line')
+                .attr('x1', 200)
+                .attr('y1', 300-length)
+                .attr('x2', 200)
+                .attr('y2', 300-length-rate[2]*4)
+                .attr('stroke-width',2)
+                .attr('stroke', 'rgb(211,79,79)')
+            //diyitioa 
+            svg.append('line')
+                .attr('x1', 198)
+                .attr('y1', 301-length)
+                .attr('x2',198 - rate[0]*4*Math.sin(40/180 * Math.PI))
+                .attr('y2',301-length - rate[0]*4*Math.cos(40/180 * Math.PI))
+                .attr('stroke-width',2)
+                .attr('stroke', 'rgb(211,79,79)')
+            //dier
+            svg.append('line')
+                .attr('x1', 200)
+                .attr('y1', 302-length)
+                .attr('x2',200 - rate[1]*4*Math.sin(20/180 * Math.PI))
+                .attr('y2',302-length - rate[1]*4*Math.cos(20/180 * Math.PI))
+                .attr('stroke-width',2)
+                .attr('stroke', 'rgb(211,79,79)')
+
+            svg.append('line')
+                .attr('x1', 200)
+                .attr('y1', 302-length)
+                .attr('x2',200 + rate[3]*4*Math.sin(20/180 * Math.PI))
+                .attr('y2',302-length - rate[3]*4*Math.cos(20/180 * Math.PI))
+                .attr('stroke-width',2)
+                .attr('stroke', 'rgb(211,79,79)')
+            svg.append('line')
+                .attr('x1', 202)
+                .attr('y1', 301-length)
+                .attr('x2',202 + rate[4]*4*Math.sin(40/180 * Math.PI))
+                .attr('y2',301-length - rate[4]*4*Math.cos(40/180 * Math.PI))
+                .attr('stroke-width',2)
+                .attr('stroke', 'rgb(211,79,79)')
+
+
+            let pieCol = ['rgb(140,179,221)', 'rgb(232,170,170)']
+
+            let tension = [22.3/(22.3+23.7), 23.7/(22.3+23.7)];
+            let smoke = [0.805, 1-0.805]
+            let sugar = [8.8/(8.8+8.2), 8.2/(8.8+8.2)]
+            let sport = [23.4/(23.4+31.7), 31.7/(23.4+31.7)]
+            let fat = [11.1/(11.1+15.3), 15.3/(11.1+15.3)]
+            let pie = d3.pie()
+            const innerR = 0
+
+            //diyige
+            let outR = Math.log(rate[0])
+            let arc_generator = d3.arc()
+                .innerRadius(innerR)
+                .outerRadius(outR * 3)
+            let pieData = pie(tension)
+         
+            var g = svg.append('g')
+                .attr('transform', 
+                    'translate(' + (199 - rate[0]*4*Math.sin(40/180 * Math.PI))
+                    + ',' + (300-length - rate[0]*4*Math.cos(40/180 * Math.PI)) + ") "
+                    + 
+                    'rotate(90)'
+                )
+                .attr('class', 'arcs')
+                .selectAll("g")
+                .data(pieData)
+                .enter()
+                .append("g")
+            g.append("path")
+                .attr('stroke', 'none')
+                .attr("d", d => arc_generator(d))
+                .attr("fill", function(d,i){return pieCol[i]})
+
+            //dierge
+            outR = Math.log(rate[1])
+            arc_generator = d3.arc()
+                .innerRadius(innerR)
+                .outerRadius(outR * 3)
+            pieData = pie(smoke)
+         
+            var g = svg.append('g')
+                .attr('transform', 
+                    'translate(' + (198 - rate[1]*4*Math.sin(20/180 * Math.PI))
+                    + ',' + (302-length - rate[1]*4*Math.cos(20/180 * Math.PI)) + ") "
+                    + 
+                    'rotate(-80)'
+                )
+                .attr('class', 'arcs')
+                .selectAll("g")
+                .data(pieData)
+                .enter()
+                .append("g")
+            g.append("path")
+                .attr('stroke', 'none')
+                .attr("d", d => arc_generator(d))
+                .attr("fill", function(d,i){return pieCol[i]})
+
+            //disange
+            outR = Math.log(rate[2])
+            arc_generator = d3.arc()
+                .innerRadius(innerR)
+                .outerRadius(outR * 3)
+            pieData = pie(sugar)
+         
+            var g = svg.append('g')
+                .attr('transform', 
+                    'translate(' + 200
+                    + ',' + (300-length-rate[2]*4) + ") "
+                    + 
+                    'rotate(80)'
+                )
+                .attr('class', 'arcs')
+                .selectAll("g")
+                .data(pieData)
+                .enter()
+                .append("g")
+            g.append("path")
+                .attr('stroke', 'none')
+                .attr("d", d => arc_generator(d))
+                .attr("fill", function(d,i){return pieCol[i]})
+
+            //disige
+            outR = Math.log(rate[3])
+            arc_generator = d3.arc()
+                .innerRadius(innerR)
+                .outerRadius(outR * 3)
+            pieData = pie(sport)
+         
+            var g = svg.append('g')
+                .attr('transform', 
+                    'translate(' + (202 + rate[3]*4*Math.sin(20/180 * Math.PI))
+                    + ',' + (302-length - rate[3]*4*Math.cos(20/180 * Math.PI)) + ") "
+                    + 
+                    'rotate(40)'
+                )
+                .attr('class', 'arcs')
+                .selectAll("g")
+                .data(pieData)
+                .enter()
+                .append("g")
+            g.append("path")
+                .attr('stroke', 'none')
+                .attr("d", d => arc_generator(d))
+                .attr("fill", function(d,i){return pieCol[i]})
+
+
+            //diwuge
+            outR = Math.log(rate[4])
+            arc_generator = d3.arc()
+                .innerRadius(innerR)
+                .outerRadius(outR * 3)
+            pieData = pie(fat)
+         
+            var g = svg.append('g')
+                .attr('transform', 
+                    'translate(' + (203 + rate[4]*4*Math.sin(40/180 * Math.PI))
+                    + ',' + (300-length - rate[4]*4*Math.cos(40/180 * Math.PI)) + ") "
+                    + 
+                    'rotate(180)'
+                )
+                .attr('class', 'arcs')
+                .selectAll("g")
+                .data(pieData)
+                .enter()
+                .append("g")
+            g.append("path")
+                .attr('stroke', 'none')
+                .attr("d", d => arc_generator(d))
+                .attr("fill", function(d,i){return pieCol[i]})
+
+    </script>
+</body>
+</html>
