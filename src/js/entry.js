@@ -1,5 +1,8 @@
+// document.getElementsByTagName('body')[0].style.zoom=2
 $(function(){
-
+    // $("div.body").css({
+    //     "transform":"scale(0.1)","transform-origin":"50% 0"
+    // })
     // const contained = document.querySelector("#contained");;
     // let fileReader = new FileReader();
 
@@ -69,6 +72,16 @@ $(function(){
         preprocess(sport);
         preprocess(hypertension);
         preprocess(hyperglycemia);
+        preprocess(hyperglycemia_m);
+        preprocess(hyperglycemia_f);
+        preprocess(smoke_m);
+        preprocess(smoke_f);
+        preprocess(sport_f);
+        preprocess(sport_m);
+        preprocess(hypertension_f);
+        preprocess(hypertension_m);
+        preprocess(fat_f);
+        preprocess(fat_m);
         //绘制图形
         setup();
     });
@@ -162,6 +175,150 @@ $(function(){
             .attr("d", d => arc_generator(d))
             .attr("fill", 'rgb(221,123,123)')
 
+
+        //柱状图底图
+        svg.append('rect')
+            .attr('x', 150)
+            .attr('y', 506)
+            .attr('width', 250)
+            .attr('height', 18)
+            .style('fill', 'rgb(222,189,189)')
+        svg.append('rect')
+            .attr('x', 150)
+            .attr('y', 556)
+            .attr('width', 250)
+            .attr('height', 18)
+            .style('fill', 'rgb(222,189,189)')
+        svg.append('rect')
+            .attr('x', 150)
+            .attr('y', 586)
+            .attr('width', 250)
+            .attr('height', 18)
+            .style('fill', 'rgb(222,189,189)')
+        svg.append('rect')
+            .attr('x', 150)
+            .attr('y', 616)
+            .attr('width', 250)
+            .attr('height', 18)
+            .style('fill', 'rgb(222,189,189)')
+        svg.append('rect')
+            .attr('x', 150)
+            .attr('y', 641)
+            .attr('width', 250)
+            .attr('height', 18)
+            .style('fill', 'rgb(222,189,189)')
+
+
+        //高血压 
+        svg.append('rect')
+            .attr('class', 'hypertensionBarm')
+            .attr('x', 150)
+            .attr('y', 506)
+            .attr('width', hypertension[0] *hypertension_m[0] * 4)
+            .attr('height', 18)
+            .style('fill', 'rgb(182,142,158)')
+        svg.append('rect')
+            .attr('class', 'hypertensionBarf')
+            .attr('x', 150 + hypertension[0] *hypertension_m[0] * 4)
+            .attr('y', 506)
+            .attr('width', hypertension[0] *hypertension_f[0] * 4)
+            .attr('height', 18)
+            .style('fill', 'rgb(221,141,141)')
+        svg.append('text')
+            .attr('class', 'hypertensionBartext')
+            .attr('x',''+(150 + hypertension[0] * 4))
+            .attr('y',521)
+            .text(hypertension[0]+'%')
+            .style('font-size', 16)
+
+        //烟草
+        svg.append('rect')
+            .attr('class', 'smokeBarm')
+            .attr('x', 150)
+            .attr('y', 556)
+            .attr('width', smoke[0] *smoke_m[0] * 4)
+            .attr('height', 18)
+            .style('fill', 'rgb(182,142,158)')
+        svg.append('rect')
+            .attr('class', 'smokeBarf')
+            .attr('x', 150 + smoke[0] *smoke_m[0] * 4)
+            .attr('y', 556)
+            .attr('width', smoke[0] *smoke_f[0] * 4)
+            .attr('height', 18)
+            .style('fill', 'rgb(221,141,141)')
+        svg.append('text')
+            .attr('class', 'smokeBartext')
+            .attr('x',''+(150 + smoke[0] * 4))
+            .attr('y',571)
+            .text(smoke[0]+'%')
+            .style('font-size', 16)
+
+        //糖尿病
+        svg.append('rect')
+            .attr('class', 'hyperglycemiaBarm')
+            .attr('x', 150)
+            .attr('y', 586)
+            .attr('width', hyperglycemia[0] *hyperglycemia_m[0] * 4)
+            .attr('height', 18)
+            .style('fill', 'rgb(182,142,158)')
+        svg.append('rect')
+            .attr('class', 'hyperglycemiaBarf')
+            .attr('x', 150 + hyperglycemia[0] *hyperglycemia_m[0] * 4)
+            .attr('y', 586)
+            .attr('width', hyperglycemia[0] *hyperglycemia_f[0] * 4)
+            .attr('height', 18)
+            .style('fill', 'rgb(221,141,141)')
+        svg.append('text')
+            .attr('class', 'hyperglycemiaBartext')
+            .attr('x',''+(150 + hyperglycemia[0] * 4))
+            .attr('y',602)
+            .text(hyperglycemia[0]+'%')
+            .style('font-size', 16)
+
+        //运动不足
+        svg.append('rect')
+                .attr('class', 'sportBarm')
+                .attr('x', 150)
+                .attr('y', 616)
+                .attr('width', sport[0] *sport_m[0] * 4)
+                .attr('height', 18)
+                .style('fill', 'rgb(182,142,158)')
+        svg.append('rect')
+                .attr('class', 'sportBarf')
+                .attr('x', 150 + sport[0] *sport_m[0] * 4)
+                .attr('y', 616)
+                .attr('width', sport[0] *sport_f[0] * 4)
+                .attr('height', 18)
+                .style('fill', 'rgb(221,141,141)')
+        svg.append('text')
+                .attr('class', 'sportBartext')
+                .attr('x',''+(150 + sport[0] * 4))
+                .attr('y',631)
+                .text(sport[0]+'%')
+                .style('font-size', 16)
+
+        //肥胖
+        svg.append('rect')
+                .attr('class', 'fatBarm')
+                .attr('x', 150)
+                .attr('y', 641)
+                .attr('width', fat[0] *fat_m[0] * 4)
+                .attr('height', 18)
+                .style('fill', 'rgb(182,142,158)')
+        svg.append('rect')
+                .attr('class', 'fatBarf')
+                .attr('x', 150 + fat[0] *fat_m[0] * 4)
+                .attr('y', 641)
+                .attr('width', fat[0] *fat_f[0] * 4)
+                .attr('height', 18)
+                .style('fill', 'rgb(221,141,141)')
+        svg.append('text')
+                .attr('class', 'fatBartext')
+                .attr('x',''+(150 + fat[0] * 4))
+                .attr('y',657)
+                .text(fat[0]+'%')
+                .style('font-size', 16)
+
     }
 
     function triggerSelect(){
@@ -208,6 +365,7 @@ $(function(){
         let currentRect = d3.select(d3.select('.allDeath').selectAll('polygon')['_groups'][0][index]);
         paintTree(index);
         updateTable(index);
+        updateMap(index);
         
         currentRect.transition()
             .duration(500)
@@ -584,6 +742,9 @@ $(function(){
         //数字刷新
         digitalChange(index);
 
+        //柱状图更新
+        updateBar(index);
+
     }
 
     function digitalChange(index){
@@ -647,6 +808,218 @@ $(function(){
         Event.animation();
         $(".data-deathRate").eq(1).html(Event.dom(final_arr));
         Event.animation();
+    }
+
+    function updateBar(index){
+        //高血压
+        d3.select('.hypertensionBarm')
+            .transition()
+            .duration(200)
+            .style('opacity', 0)
+            .transition()
+            .delay(200)
+            .duration(1)
+            .style('opacity', 1)
+            .style('width',0)
+            .transition()
+            .delay(200)
+            .duration(500)
+            .ease(d3['easeLinear'])
+            .style('width', hypertension_m[index] * hypertension[index]*4)
+        d3.select('.hypertensionBarf')
+            .transition()
+            .duration(200)
+            .style('opacity', 0)
+            .transition()
+            .delay(200)
+            .duration(1)
+            .style('opacity', 1)
+            .attr('x',150+hypertension_m[index] * hypertension[index]*4)
+            .style('width',0)
+            .transition()
+            .delay(700)
+            .duration(500)
+            .ease(d3['easeLinear'])
+            .style('width', hypertension_f[index] * hypertension[index]*4)
+        d3.select('.hypertensionBartext')
+            .transition()
+            .duration(200)
+            .style('opacity', 0)
+            .attr('x',150 + hypertension[index]*4)
+            .transition()
+            .delay(700)
+            .duration(500)
+            .style('opacity', 1)
+            .text(hypertension[index]+'%')
+
+        //烟草
+        d3.select('.smokeBarm')
+            .transition()
+            .duration(200)
+            .style('opacity', 0)
+            .transition()
+            .delay(200)
+            .duration(1)
+            .style('opacity', 1)
+            .style('width',0)
+            .transition()
+            .delay(200)
+            .duration(500)
+            .ease(d3['easeLinear'])
+            .style('width', smoke_m[index] * smoke[index]*4)
+        d3.select('.smokeBarf')
+            .transition()
+            .duration(200)
+            .style('opacity', 0)
+            .transition()
+            .delay(200)
+            .duration(1)
+            .style('opacity', 1)
+            .attr('x',150+smoke_m[index] * smoke[index]*4)
+            .style('width',0)
+            .transition()
+            .delay(700)
+            .duration(500)
+            .ease(d3['easeLinear'])
+            .style('width', smoke_f[index] * smoke[index]*4)
+        d3.select('.smokeBartext')
+            .transition()
+            .duration(200)
+            .style('opacity', 0)
+            .attr('x',150 + smoke[index]*4)
+            .transition()
+            .delay(700)
+            .duration(500)
+            .style('opacity', 1)
+            .text(smoke[index]+'%')
+
+        //糖尿病
+        d3.select('.hyperglycemiaBarm')
+            .transition()
+            .duration(200)
+            .style('opacity', 0)
+            .transition()
+            .delay(200)
+            .duration(1)
+            .style('opacity', 1)
+            .style('width',0)
+            .transition()
+            .delay(200)
+            .duration(500)
+            .ease(d3['easeLinear'])
+            .style('width', hyperglycemia_m[index] * hyperglycemia[index]*4)
+        d3.select('.hyperglycemiaBarf')
+            .transition()
+            .duration(200)
+            .style('opacity', 0)
+            .transition()
+            .delay(200)
+            .duration(1)
+            .style('opacity', 1)
+            .attr('x',150+hyperglycemia_m[index] * hyperglycemia[index]*4)
+            .style('width',0)
+            .transition()
+            .delay(700)
+            .duration(500)
+            .ease(d3['easeLinear'])
+            .style('width', hyperglycemia_f[index] * hyperglycemia[index]*4)
+        d3.select('.hyperglycemiaBartext')
+            .transition()
+            .duration(200)
+            .style('opacity', 0)
+            .attr('x',150 + hyperglycemia[index]*4)
+            .transition()
+            .delay(700)
+            .duration(500)
+            .style('opacity', 1)
+            .text(hyperglycemia[index]+'%')
+
+        //运动不足
+        d3.select('.sportBarm')
+            .transition()
+            .duration(200)
+            .style('opacity', 0)
+            .transition()
+            .delay(200)
+            .duration(1)
+            .style('opacity', 1)
+            .style('width',0)
+            .transition()
+            .delay(200)
+            .duration(500)
+            .ease(d3['easeLinear'])
+            .style('width', sport_m[index] * sport[index]*4)
+        d3.select('.sportBarf')
+            .transition()
+            .duration(200)
+            .style('opacity', 0)
+            .transition()
+            .delay(200)
+            .duration(1)
+            .style('opacity', 1)
+            .attr('x',150+sport_m[index] * sport[index]*4)
+            .style('width',0)
+            .transition()
+            .delay(700)
+            .duration(500)
+            .ease(d3['easeLinear'])
+            .style('width', sport_f[index] * sport[index]*4)
+        d3.select('.sportBartext')
+            .transition()
+            .duration(200)
+            .style('opacity', 0)
+            .attr('x',150 + sport[index]*4)
+            .transition()
+            .delay(700)
+            .duration(500)
+            .style('opacity', 1)
+            .text(sport[index]+'%')
+
+        //肥胖
+        d3.select('.fatBarm')
+            .transition()
+            .duration(200)
+            .style('opacity', 0)
+            .transition()
+            .delay(200)
+            .duration(1)
+            .style('opacity', 1)
+            .style('width',0)
+            .transition()
+            .delay(200)
+            .duration(500)
+            .ease(d3['easeLinear'])
+            .style('width', fat_m[index] * fat[index]*4)
+        d3.select('.fatBarf')
+            .transition()
+            .duration(200)
+            .style('opacity', 0)
+            .transition()
+            .delay(200)
+            .duration(1)
+            .style('opacity', 1)
+            .attr('x',150+fat_m[index] * fat[index]*4)
+            .style('width',0)
+            .transition()
+            .delay(700)
+            .duration(500)
+            .ease(d3['easeLinear'])
+            .style('width', fat_f[index] * fat[index]*4)
+        d3.select('.fatBartext')
+            .transition()
+            .duration(200)
+            .style('opacity', 0)
+            .attr('x',150 + fat[index]*4)
+            .transition()
+            .delay(700)
+            .duration(500)
+            .style('opacity', 1)
+            .text(fat[index]+'%')
+
+    }
+
+    function updateMap(index){
+        
     }
 
 
