@@ -35,9 +35,6 @@ html,body{
     clear: both;
 }
 .red{
-    color: rgb(175,27,27);
-}
-.lred{
     color: rgb(211, 79,79);
 }
 .black{
@@ -60,7 +57,7 @@ html,body{
     left: calc(50% - 40px);
     display: inline-block;
     /* text-align: center; */
-    border-top: 25px  solid #A32424;
+    border-top: 25px  solid rgb(211, 79,79);
     border-left: 35px solid transparent;
     border-right: 35px solid transparent;
     cursor: pointer;
@@ -129,21 +126,23 @@ html,body{
 .page3 p{
     position: relative;
 }
-.page3 p:first-child{
-    top: -10%
+.page3 p:nth-child(2){
+    opacity: 0;
+    font-size: 30px;
+    top:-10%;
+    left: -250px;
 }
 .page3 p:first-child span:nth-child(4){
     opacity: 0;
 }
-.page3 p:nth-child(2){
-    top:-10%;
-    left: -11%;
+.page3 p:first-child{
+    top: -50%
 }
-/* .page3 p:nth-child(3){
-    top:-2%;
-} */
+.page3 p:nth-child(3){
+    opacity: 0;
+}
 .page3 p:nth-child(4){
-    top:4%;
+    top: 120%;
 }
 
 .page4{
@@ -156,11 +155,19 @@ html,body{
 .page4 p:first-child{
     top: -12%;
 }
+.page4 p:first-child span:nth-child(2){
+    opacity: 0;
+}
 .page4 p:nth-child(2){
     top: -8%;
+    opacity: 0;
 }
 .page4 p:nth-child(3){
     top: -4%;
+    opacity: 0;
+}
+.page4 p:nth-child(4){
+    opacity: 0;
 }
 .page4 p:nth-child(5){
     position: absolute;
@@ -198,12 +205,13 @@ html,body{
 }
 .page5 .dataEn{
     color: rgb(129,84,84);
-    font-family: 'HGHZ_CNKI';
+    font-family: 'TIMES NEW ROMAN';
     line-height: 0.9rem;
     font-size: 12px;
 }
 .page5 .titleEn{
     font-size: 15px;
+    font-weight: bold;
 }
 .page5 .tableBox{
     position: absolute;
@@ -214,7 +222,7 @@ html,body{
 }
 .page5 .tableBox .data-countryCh{
     font-weight: bold;
-    font-size: 1.6rem;
+    font-size: 25px;
 }
 .page5 .tableBox .area{
     position: relative;
@@ -222,7 +230,7 @@ html,body{
 }
 .page5 .tableBox .area p:first-child .tex{
     position: relative;
-    left: 140px;
+    left: 130px;
 }
 .page5 .tableBox .population{
     position: relative;
@@ -238,7 +246,7 @@ html,body{
 }
 .page5 .tableBox .deathRate p:first-child .tex{
     position: relative;
-    left: 80px;
+    left: 70px;
 }
 .page5 .tableBox .deathRate p:nth-child(2){
     font-size: 12px;
