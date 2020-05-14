@@ -1118,10 +1118,10 @@ $(function(){
                     .next().delay(4500).animate({opacity: 1},1000)
             }
             if(index.index == 2){
-                $('.page3 p').eq(0).animate({'top': '-10%'}, 1000)
+                $('.page3 p').eq(0).animate({opacity: 1}, 1000)
                 $('.page3 p').eq(1)
                     .delay(1000)
-                    .animate({'opacity': 1})
+                    .animate({opacity: 1})
                 $('.page3 p').eq(0).find('span').eq(3)
                     .delay(1000)
                     .animate({opacity: 1},1000)
@@ -1129,8 +1129,8 @@ $(function(){
                     .delay(2000)
                     .animate({opacity: 1},1000)
                 $('.page3 p').eq(3)
-                    .delay(2000)
-                    .animate({'top': '4%'},2000)
+                    .delay(3000)
+                    .animate({opacity: 1},2000)
             }
             if(index.index == 3){
                 $('.page4 p').eq(0).find('span').eq(1)
