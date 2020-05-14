@@ -1,9 +1,9 @@
 // document.getElementsByTagName('body')[0].style.zoom=2
 
-if (screen.width >= 1440){
-}else{
-    document.getElementsByTagName('body')[0].style.zoom=0.67
-}
+// if (screen.width >= 1440){
+// }else{
+//     document.getElementsByTagName('body')[0].style.zoom=0.67
+// }
 
 $(function(){
     var player = $('#player')[0];
