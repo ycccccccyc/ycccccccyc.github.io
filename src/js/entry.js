@@ -2,10 +2,12 @@
 
 if (screen.width >= 1440){
 }else{
-    document.getElementsByTagName('body')[0].style.zoom=1/0.67
+    document.getElementsByTagName('body')[0].style.zoom=0.67
 }
 
 $(function(){
+    var player = $('#player')[0];
+    player.play()
     //svg
     const svg = d3.select('svg');
     const margin = {
@@ -28,14 +30,11 @@ $(function(){
 
     let smoke_m = [], smoke_f = [], fat_m = [],fat_f = [],sport_m = [], sport_f = [],
         hypertension_m = [], hypertension_f = [], hyperglycemia_m = [], hyperglycemia_f=[];
-    // let countriesZh;
     let continent = [];
     let area = [];
-    let deathNum = [];
     let gdp = [];
     let population = [];
     let deathRate = [];
-    let anchorAngle = []
     
 
     d3.csv("datall.csv",function(error,csvdata){
@@ -178,32 +177,32 @@ $(function(){
 
         //柱状图底图
         svg.append('rect')
-            .attr('x', 150)
-            .attr('y', 506)
+            .attr('x', 170)
+            .attr('y', 508)
             .attr('width', 250)
             .attr('height', 18)
             .style('fill', 'rgb(222,189,189)')
         svg.append('rect')
-            .attr('x', 150)
-            .attr('y', 556)
+            .attr('x', 170)
+            .attr('y', 558)
             .attr('width', 250)
             .attr('height', 18)
             .style('fill', 'rgb(222,189,189)')
         svg.append('rect')
-            .attr('x', 150)
-            .attr('y', 586)
+            .attr('x', 170)
+            .attr('y', 591)
             .attr('width', 250)
             .attr('height', 18)
             .style('fill', 'rgb(222,189,189)')
         svg.append('rect')
-            .attr('x', 150)
-            .attr('y', 616)
+            .attr('x', 170)
+            .attr('y', 620)
             .attr('width', 250)
             .attr('height', 18)
             .style('fill', 'rgb(222,189,189)')
         svg.append('rect')
-            .attr('x', 150)
-            .attr('y', 641)
+            .attr('x', 170)
+            .attr('y', 647)
             .attr('width', 250)
             .attr('height', 18)
             .style('fill', 'rgb(222,189,189)')
@@ -212,113 +211,150 @@ $(function(){
         //高血压 
         svg.append('rect')
             .attr('class', 'hypertensionBarm')
-            .attr('x', 150)
-            .attr('y', 506)
+            .attr('x', 170)
+            .attr('y', 508)
             .attr('width', hypertension[0] *hypertension_m[0] * 4)
             .attr('height', 18)
             .style('fill', 'rgb(182,142,158)')
         svg.append('rect')
             .attr('class', 'hypertensionBarf')
-            .attr('x', 150 + hypertension[0] *hypertension_m[0] * 4)
-            .attr('y', 506)
+            .attr('x', 170 + hypertension[0] *hypertension_m[0] * 4)
+            .attr('y', 508)
             .attr('width', hypertension[0] *hypertension_f[0] * 4)
             .attr('height', 18)
             .style('fill', 'rgb(221,141,141)')
-        svg.append('text')
-            .attr('class', 'hypertensionBartext')
-            .attr('x',''+(150 + hypertension[0] * 4))
-            .attr('y',521)
-            .text(hypertension[0]+'%')
-            .style('font-size', 16)
+
 
         //烟草
         svg.append('rect')
             .attr('class', 'smokeBarm')
-            .attr('x', 150)
-            .attr('y', 556)
+            .attr('x', 170)
+            .attr('y', 558)
             .attr('width', smoke[0] *smoke_m[0] * 4)
             .attr('height', 18)
             .style('fill', 'rgb(182,142,158)')
         svg.append('rect')
             .attr('class', 'smokeBarf')
-            .attr('x', 150 + smoke[0] *smoke_m[0] * 4)
-            .attr('y', 556)
+            .attr('x', 170 + smoke[0] *smoke_m[0] * 4)
+            .attr('y', 558)
             .attr('width', smoke[0] *smoke_f[0] * 4)
             .attr('height', 18)
             .style('fill', 'rgb(221,141,141)')
-        svg.append('text')
-            .attr('class', 'smokeBartext')
-            .attr('x',''+(150 + smoke[0] * 4))
-            .attr('y',571)
-            .text(smoke[0]+'%')
-            .style('font-size', 16)
+
 
         //糖尿病
         svg.append('rect')
             .attr('class', 'hyperglycemiaBarm')
-            .attr('x', 150)
-            .attr('y', 586)
+            .attr('x', 170)
+            .attr('y', 591)
             .attr('width', hyperglycemia[0] *hyperglycemia_m[0] * 4)
             .attr('height', 18)
             .style('fill', 'rgb(182,142,158)')
         svg.append('rect')
             .attr('class', 'hyperglycemiaBarf')
-            .attr('x', 150 + hyperglycemia[0] *hyperglycemia_m[0] * 4)
-            .attr('y', 586)
+            .attr('x', 170 + hyperglycemia[0] *hyperglycemia_m[0] * 4)
+            .attr('y', 591)
             .attr('width', hyperglycemia[0] *hyperglycemia_f[0] * 4)
             .attr('height', 18)
             .style('fill', 'rgb(221,141,141)')
-        svg.append('text')
-            .attr('class', 'hyperglycemiaBartext')
-            .attr('x',''+(150 + hyperglycemia[0] * 4))
-            .attr('y',602)
-            .text(hyperglycemia[0]+'%')
-            .style('font-size', 16)
+
 
         //运动不足
         svg.append('rect')
                 .attr('class', 'sportBarm')
-                .attr('x', 150)
-                .attr('y', 616)
+                .attr('x', 170)
+                .attr('y', 620)
                 .attr('width', sport[0] *sport_m[0] * 4)
                 .attr('height', 18)
                 .style('fill', 'rgb(182,142,158)')
         svg.append('rect')
                 .attr('class', 'sportBarf')
-                .attr('x', 150 + sport[0] *sport_m[0] * 4)
-                .attr('y', 616)
+                .attr('x', 170 + sport[0] *sport_m[0] * 4)
+                .attr('y', 620)
                 .attr('width', sport[0] *sport_f[0] * 4)
                 .attr('height', 18)
                 .style('fill', 'rgb(221,141,141)')
-        svg.append('text')
-                .attr('class', 'sportBartext')
-                .attr('x',''+(150 + sport[0] * 4))
-                .attr('y',631)
-                .text(sport[0]+'%')
-                .style('font-size', 16)
 
         //肥胖
         svg.append('rect')
                 .attr('class', 'fatBarm')
-                .attr('x', 150)
-                .attr('y', 641)
+                .attr('x', 170)
+                .attr('y', 647)
                 .attr('width', fat[0] *fat_m[0] * 4)
                 .attr('height', 18)
                 .style('fill', 'rgb(182,142,158)')
         svg.append('rect')
                 .attr('class', 'fatBarf')
-                .attr('x', 150 + fat[0] *fat_m[0] * 4)
-                .attr('y', 641)
+                .attr('x', 170 + fat[0] *fat_m[0] * 4)
+                .attr('y', 647)
                 .attr('width', fat[0] *fat_f[0] * 4)
                 .attr('height', 18)
                 .style('fill', 'rgb(221,141,141)')
-        svg.append('text')
-                .attr('class', 'fatBartext')
-                .attr('x',''+(150 + fat[0] * 4))
-                .attr('y',657)
-                .text(fat[0]+'%')
-                .style('font-size', 16)
 
+
+        //平均值标注
+        svg.append('rect')
+            .attr('x', 170 + 22.3*4)
+            .attr('y', 506)
+            .attr('width', 3)
+            .attr('height', 22)
+            .style('fill', 'rgb(216,114,114)')
+        svg.append('rect')
+            .attr('x', 170 + 19.2*4)
+            .attr('y', 556)
+            .attr('width', 3)
+            .attr('height', 22)
+            .style('fill', 'rgb(216,114,114)') 
+        svg.append('rect')
+            .attr('x', 170 + 8.5*4)
+            .attr('y', 589)
+            .attr('width', 3)
+            .attr('height', 22)
+            .style('fill', 'rgb(216,114,114)')
+        svg.append('rect')
+            .attr('x', 170 + 27.5*4)
+            .attr('y', 618)
+            .attr('width', 3)
+            .attr('height', 22)
+            .style('fill', 'rgb(216,114,114)')
+        svg.append('rect')
+            .attr('x', 170 + 13.2*4)
+            .attr('y', 645)
+            .attr('width', 3)
+            .attr('height', 22)
+            .style('fill', 'rgb(216,114,114)') 
+
+        //上一层文字（最顶层）
+        svg.append('text')
+            .attr('class', 'hypertensionBartext')
+            .attr('x',''+(170 + hypertension[0] * 4))
+            .attr('y',523)
+            .text(hypertension[0]+'%')
+            .style('font-size', 16)
+        svg.append('text')
+            .attr('class', 'smokeBartext')
+            .attr('x',''+(170 + smoke[0] * 4))
+            .attr('y',573)
+            .text(smoke[0]+'%')
+            .style('font-size', 16)
+        svg.append('text')
+            .attr('class', 'hyperglycemiaBartext')
+            .attr('x',''+(170 + hyperglycemia[0] * 4))
+            .attr('y',607)
+            .text(hyperglycemia[0]+'%')
+            .style('font-size', 16)
+        svg.append('text')
+                .attr('class', 'sportBartext')
+                .attr('x',''+(170 + sport[0] * 4))
+                .attr('y',635)
+                .text(sport[0]+'%')
+                .style('font-size', 16)
+        svg.append('text')
+            .attr('class', 'fatBartext')
+            .attr('x',''+(170 + fat[0] * 4))
+            .attr('y',663)
+            .text(fat[0]+'%')
+            .style('font-size', 16)
     }
 
     function triggerSelect(){
@@ -732,10 +768,10 @@ $(function(){
 
     function updateTable(index){
         //资料卡更新
-        $('.page5 .tableBox .data-countryCh').animate({opacity: 0}, 500, function(){
+        $('.page5 .tableBox .data-countryCh').stop().animate({opacity: 0}, 500, function(){
             $(this).text(countriesZh[index]).animate({opacity: 1},500)
         })
-        $('.page5 .tableBox .data-countryEn').animate({opacity: 0}, 500, function(){
+        $('.page5 .tableBox .data-countryEn').stop().animate({opacity: 0}, 500, function(){
             $(this).text(countriesEn[index]).animate({opacity: 1},500)
         })
 
@@ -834,7 +870,7 @@ $(function(){
             .delay(200)
             .duration(1)
             .style('opacity', 1)
-            .attr('x',150+hypertension_m[index] * hypertension[index]*4)
+            .attr('x',170+hypertension_m[index] * hypertension[index]*4)
             .style('width',0)
             .transition()
             .delay(700)
@@ -845,7 +881,7 @@ $(function(){
             .transition()
             .duration(200)
             .style('opacity', 0)
-            .attr('x',150 + hypertension[index]*4)
+            .attr('x',170 + hypertension[index]*4)
             .transition()
             .delay(700)
             .duration(500)
@@ -875,7 +911,7 @@ $(function(){
             .delay(200)
             .duration(1)
             .style('opacity', 1)
-            .attr('x',150+smoke_m[index] * smoke[index]*4)
+            .attr('x',170+smoke_m[index] * smoke[index]*4)
             .style('width',0)
             .transition()
             .delay(700)
@@ -886,7 +922,7 @@ $(function(){
             .transition()
             .duration(200)
             .style('opacity', 0)
-            .attr('x',150 + smoke[index]*4)
+            .attr('x',170 + smoke[index]*4)
             .transition()
             .delay(700)
             .duration(500)
@@ -916,7 +952,7 @@ $(function(){
             .delay(200)
             .duration(1)
             .style('opacity', 1)
-            .attr('x',150+hyperglycemia_m[index] * hyperglycemia[index]*4)
+            .attr('x',170+hyperglycemia_m[index] * hyperglycemia[index]*4)
             .style('width',0)
             .transition()
             .delay(700)
@@ -927,7 +963,7 @@ $(function(){
             .transition()
             .duration(200)
             .style('opacity', 0)
-            .attr('x',150 + hyperglycemia[index]*4)
+            .attr('x',170 + hyperglycemia[index]*4)
             .transition()
             .delay(700)
             .duration(500)
@@ -957,7 +993,7 @@ $(function(){
             .delay(200)
             .duration(1)
             .style('opacity', 1)
-            .attr('x',150+sport_m[index] * sport[index]*4)
+            .attr('x',170+sport_m[index] * sport[index]*4)
             .style('width',0)
             .transition()
             .delay(700)
@@ -968,7 +1004,7 @@ $(function(){
             .transition()
             .duration(200)
             .style('opacity', 0)
-            .attr('x',150 + sport[index]*4)
+            .attr('x',170 + sport[index]*4)
             .transition()
             .delay(700)
             .duration(500)
@@ -998,7 +1034,7 @@ $(function(){
             .delay(200)
             .duration(1)
             .style('opacity', 1)
-            .attr('x',150+fat_m[index] * fat[index]*4)
+            .attr('x',170+fat_m[index] * fat[index]*4)
             .style('width',0)
             .transition()
             .delay(700)
@@ -1009,7 +1045,7 @@ $(function(){
             .transition()
             .duration(200)
             .style('opacity', 0)
-            .attr('x',150 + fat[index]*4)
+            .attr('x',170 + fat[index]*4)
             .transition()
             .delay(700)
             .duration(500)
@@ -1019,8 +1055,46 @@ $(function(){
     }
 
     function updateMap(index){
+        $('.mapScale5').css('opacity', 0)
+        $('.mapScale10').css('opacity', 0)
 
+        let showWidth, showHeight;
+
+        let fileName = (index+1)/100 >=1 ?
+        ''+(index+1) : ((index+1)/10>=1 ?
+            '0'+(index+1) : '00'+(index+1));
+        if(mapScaleCode[index] == 5){
+            fileName+='_5';
+            $('.mapScale5').animate({'opacity': 1}, 500)
+        }
+        else if(mapScaleCode[index] == 10){
+            fileName+='_10';
+            $('.mapScale10').animate({'opacity': 1}, 500)
+        }
+
+        let oImg = $('.countryMap')
+        // oImg.stop().animate({'opacity':0},500)
+        oImg.css({'opacity':0})
+
+        var img = new Image();
+        img.src = "./src/image/maps/" + fileName + '.png';
+
+        if(img.complete){
+            // callback(img.width ,img.height);
+        }else{
+            img.onload = function(){
+                showWidth = img.width/3.2;
+                showHeight = img.height/3.2
+                oImg.css({'width': showWidth, 'height': showHeight, 
+                'top': ''+(document.body.clientHeight/2-10- showHeight/2) + 'px',
+                'left': ''+(document.body.clientWidth/2 - showWidth/2) + 'px'
+                })
+                $('.countryMap').attr('src', "./src/image/maps/" + fileName + '.png')
+            }
+        }
+        oImg.delay(500).animate({'opacity':1},500)
     }
+
 
 
 
@@ -1028,6 +1102,9 @@ $(function(){
         licenseKey: ' i have no key ',
         anchors: ['page1', 'page2', 'page3', 'page4','page5'],
         afterLoad: function(anchor, index){
+            if(index.index == 0){
+
+            }
             if(index.index == 1){
                 $('.page2 .title').animate({opacity: 1},1000)
                     .next().animate({opacity: 1},1000)
@@ -1036,7 +1113,7 @@ $(function(){
                     .next().delay(4500).animate({opacity: 1},1000)
             }
             if(index.index == 2){
-                $('.page2 p').eq(0).find('span').eq(3)
+                $('.page3 p').eq(0).find('span').eq(3)
                     .animate({opacity: 1},1000)
             }
             if(index.index == 4){

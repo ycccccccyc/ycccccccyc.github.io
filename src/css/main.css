@@ -22,9 +22,6 @@ html,body{
     /* background-attachment: fixed; */
     background-image: url(../image/background.png);
 }
-.page5{
-    background-image: url(../image/bgim.png);
-}
 .layer{
     position: relative;
     width: 100%;
@@ -73,7 +70,7 @@ html,body{
     display: inline-block;
     position: relative;
     width: 5rem;
-    height: 5rem;
+    height: 4.5rem;
     top: 10px;
     left: -20px;
     background-image: url(../icon/heart.png);
@@ -114,6 +111,9 @@ html,body{
 }
 .page3 p:first-child{
     top: -10%
+}
+.page3 p:first-child span:nth-child(4){
+    opacity: 0;
 }
 .page3 p:nth-child(2){
     top:-10%;
@@ -184,7 +184,7 @@ html,body{
     text-align: left;
     float: left;
     top: 7%;
-    left: 5%;
+    left: 6%;
 }
 .page5 .tableBox .data-countryCh{
     font-weight: bold;
@@ -196,11 +196,11 @@ html,body{
 }
 .page5 .tableBox .area p:first-child .tex{
     position: relative;
-    left: 120px;
+    left: 140px;
 }
 .page5 .tableBox .area p:last-child .tex{
     position: relative;
-    left: 120px;
+    left: 140px;
 }
 .page5 .tableBox .population{
     position: relative;
@@ -208,11 +208,11 @@ html,body{
 }
 .page5 .tableBox .population p:first-child .tex{
     position: relative;
-    left: 120px;
+    left: 140px;
 }
 .page5 .tableBox .population p:last-child .tex{
     position: relative;
-    left: 120px;
+    left: 140px;
 }
 .page5 .tableBox .deathRate{
     position: relative;
@@ -220,11 +220,11 @@ html,body{
 }
 .page5 .tableBox .deathRate p:first-child .tex{
     position: relative;
-    left: 60px;
+    left: 80px;
 }
 .page5 .tableBox .deathRate p:nth-child(3) .tex{
     position: relative;
-    left: 50px;
+    left: 70px;
 }
 .page5 .desc{
     position: relative;
@@ -270,52 +270,120 @@ html,body{
 .page5 .legend{
     background-image: url(../image/legend.png);
     width: 50%;
-    height: 50%;
+    height: 100%;
     position: absolute;
     pointer-events:none;
     background-repeat: no-repeat;
     background-size: 30%;
     z-index:1000;
-    left: 80%;
+    left: 82%;
     float: left;
-    top:50%
+    top:22%
 }
 .page5 .barchart{
     background-image: url(../image/barchart.png);
     width: 20%;
-    height: 100%;
+    height: 400px;
     position: absolute;
     pointer-events:none;
     background-repeat: no-repeat;
     background-size: 30%;
     z-index:1000;
-    left: 1%;
+    left: 40px;
     float: left;
-    top:50%
+    top:474px
 }
 .page5 .icons{
     background-image: url(../image/icon.png);
-    width: 88px;
+    width: 92px;
     height: 100%;
     position: absolute;
     pointer-events:none;
     background-repeat: no-repeat;
     background-size: 30%;
     z-index:1000;
-    left: 6%;
+    left: 7%;
     float: left;
-    top:54%
+    top:505px
 }
 .page5 .countryMap{
-    background-image: url(../image/maps/011.png);
+    position: absolute;
+    display: inline-block;
     width: 100px;
-    /* height: auto; */
+    pointer-events:none;
+    top: calc(50% - 50px);
+    left: calc(50% - 50px)
+}
+.page5 .bgimage{
+    background-image: url(../image/bgim.png);
+    width: 100%;
+    height: 100%;
     position: absolute;
     pointer-events:none;
     background-repeat: no-repeat;
-    background-size: 30%;
-    z-index:1000;
-    left: 6%;
+    display: inline-block;
+    background-size: 44%;
+    text-align: center;
+    left: 544px;
+    margin:0 auto;
+    top:145px
+}
+.page5 .mapCon{
+    opacity: 0;
     float: left;
-    top:14%
+    position: relative;
+}
+.page5 .legendBottom{
+    background-image: url(../image/legendBottom.png);
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    pointer-events:none;
+    background-repeat: no-repeat;
+    background-size: 20%;
+    z-index:1000;
+    left: 45%;
+    float: left;
+    top:86%
+}
+.page5 .apdec{
+    background-image: url(../image/dec.png);
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    pointer-events:none;
+    background-repeat: no-repeat;
+    background-size: 26%;
+    z-index:1000;
+    left: 170px;
+    float: left;
+    top:680px
+}
+.page5 .mapScale5{
+    background-image: url(../image/mapScale5.png);
+    opacity: 0;
+    width: 10%;
+    height: 100%;
+    position: absolute;
+    pointer-events:none;
+    background-repeat: no-repeat;
+    background-size: 23%;
+    z-index:1000;
+    left: calc(50% - 5px);
+    float: left;
+    top:600px
+}
+.page5 .mapScale10{
+    background-image: url(../image/mapScale10.png);
+    width: 10%;
+    opacity: 0;
+    height: 100%;
+    position: absolute;
+    pointer-events:none;
+    background-repeat: no-repeat;
+    background-size: 26%;
+    z-index:1000;
+    left: calc(50% - 5px);
+    float: left;
+    top:600px
 }
