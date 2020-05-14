@@ -10,6 +10,12 @@ html,body{
     overflow: hidden;
     color: rgb(73,73,73);
 }
+#player{
+    position: fixed;
+    float: left;
+    z-index: 1010;
+    top: -120px;
+}
 .wrapper{
     height: 100%;
 }
