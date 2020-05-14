@@ -18,6 +18,7 @@ html,body{
     height: 100%;
     text-align: center;
     background-size: 100% 100%;
+    position: relative;
     background-size: cover;
     /* background-attachment: fixed; */
     background-image: url(../image/background.png);
@@ -36,6 +37,13 @@ html,body{
 .red{
     color: rgb(175,27,27);
 }
+.lred{
+    color: rgb(211, 79,79);
+}
+.black{
+    color: rgb(73,73,73);
+    font-size: 35px;
+}
 .font60{
     font-size: 60px;
 }
@@ -48,14 +56,26 @@ html,body{
     height: 0px;
     position: absolute;
     /* text-align: center; */
-    top:53%;
+    top:48%;
     left: calc(50% - 40px);
     display: inline-block;
     /* text-align: center; */
-    border-top: 30px  solid #A32424;
-    border-left: 40px solid transparent;
-    border-right: 40px solid transparent;
+    border-top: 25px  solid #A32424;
+    border-left: 35px solid transparent;
+    border-right: 35px solid transparent;
     cursor: pointer;
+}
+.lticon{
+    background-image: url(../image/lticon.png);
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: 28%;
+    left: 40px;
+    float: left;
+    top:40px
+    
 }
 
 
@@ -104,7 +124,7 @@ html,body{
 
 .page3{
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 35px;
 }
 .page3 p{
     position: relative;
@@ -117,18 +137,18 @@ html,body{
 }
 .page3 p:nth-child(2){
     top:-10%;
-    left: -22%;
+    left: -11%;
 }
-.page3 p:nth-child(3){
+/* .page3 p:nth-child(3){
     top:-2%;
-}
+} */
 .page3 p:nth-child(4){
-    top:2%;
+    top:4%;
 }
 
 .page4{
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 35px;
 }
 .page4 p{
     position: relative;
@@ -147,13 +167,14 @@ html,body{
     /* text-align: center; */
     margin: 0 auto;
     display: inline-block;
-    top: 47%;
-    font-size: 1.5rem;
+    top: 43%;
+    color: rgb(211,79,79);
+    font-size: 25px;
     font-weight: normal;
     left: calc(50% - 4.5em)
 }
 .page4 .declaration{
-    font-size: 1.2rem;
+    font-size: 15px;
     color: rgb(211,79,79);
     font-weight: normal;
     position: absolute;
@@ -165,20 +186,25 @@ html,body{
 
 
 .page5{
-    font-size: 1rem;
+    font-size: 18px;
+    font-weight: lighter;
     position: relative;
     color: rgb(70,70,70);
 }
 #mysvg{
+    position: relative;
     margin: 0 auto;
+    z-index: 20000;
 }
 .page5 .dataEn{
     color: rgb(129,84,84);
     font-family: 'HGHZ_CNKI';
-    /* line-height: 1.1rem; */
-    font-size: 1rem;
+    line-height: 0.9rem;
+    font-size: 12px;
 }
-
+.page5 .titleEn{
+    font-size: 15px;
+}
 .page5 .tableBox{
     position: absolute;
     text-align: left;
@@ -198,19 +224,11 @@ html,body{
     position: relative;
     left: 140px;
 }
-.page5 .tableBox .area p:last-child .tex{
-    position: relative;
-    left: 140px;
-}
 .page5 .tableBox .population{
     position: relative;
     top: 50px;
 }
 .page5 .tableBox .population p:first-child .tex{
-    position: relative;
-    left: 140px;
-}
-.page5 .tableBox .population p:last-child .tex{
     position: relative;
     left: 140px;
 }
@@ -222,15 +240,17 @@ html,body{
     position: relative;
     left: 80px;
 }
-.page5 .tableBox .deathRate p:nth-child(3) .tex{
-    position: relative;
-    left: 70px;
+.page5 .tableBox .deathRate p:nth-child(2){
+    font-size: 12px;
 }
 .page5 .desc{
     position: relative;
     top: 90px;
     float: left;
     line-height: 1rem;
+}
+.page5 .desc p:nth-child(2){
+    font-size: 12px;
 }
 
 /* 滚动 */
@@ -268,43 +288,43 @@ html,body{
 }
 
 .page5 .legend{
-    background-image: url(../image/legend.png);
+    background-image: url(../image/legend.svg);
     width: 50%;
     height: 100%;
     position: absolute;
     pointer-events:none;
     background-repeat: no-repeat;
-    background-size: 30%;
+    background-size: 28%;
     z-index:1000;
-    left: 82%;
+    left: 84%;
     float: left;
-    top:22%
+    top:320px
 }
 .page5 .barchart{
     background-image: url(../image/barchart.png);
-    width: 20%;
-    height: 400px;
-    position: absolute;
-    pointer-events:none;
-    background-repeat: no-repeat;
-    background-size: 30%;
-    z-index:1000;
-    left: 40px;
-    float: left;
-    top:474px
-}
-.page5 .icons{
-    background-image: url(../image/icon.png);
-    width: 92px;
+    width: 380px;
     height: 100%;
     position: absolute;
     pointer-events:none;
     background-repeat: no-repeat;
-    background-size: 30%;
+    background-size: 27%;
+    z-index:1000;
+    left: 40px;
+    float: left;
+    top:420px
+}
+.page5 .icons{
+    background-image: url(../image/icon.png);
+    width: 90px;
+    height: 100%;
+    position: absolute;
+    pointer-events:none;
+    background-repeat: no-repeat;
+    background-size: 27%;
     z-index:1000;
     left: 7%;
     float: left;
-    top:505px
+    top:450px
 }
 .page5 .countryMap{
     position: absolute;
@@ -320,6 +340,7 @@ html,body{
     height: 100%;
     position: absolute;
     pointer-events:none;
+    z-index: 1;
     background-repeat: no-repeat;
     display: inline-block;
     background-size: 44%;
@@ -340,11 +361,11 @@ html,body{
     position: absolute;
     pointer-events:none;
     background-repeat: no-repeat;
-    background-size: 20%;
+    background-size: 16%;
     z-index:1000;
     left: 45%;
     float: left;
-    top:86%
+    top:825px
 }
 .page5 .apdec{
     background-image: url(../image/dec.png);
@@ -353,11 +374,11 @@ html,body{
     position: absolute;
     pointer-events:none;
     background-repeat: no-repeat;
-    background-size: 26%;
+    background-size: 21%;
     z-index:1000;
     left: 170px;
     float: left;
-    top:680px
+    top:598px
 }
 .page5 .mapScale5{
     background-image: url(../image/mapScale5.png);
